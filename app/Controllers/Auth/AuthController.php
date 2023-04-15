@@ -19,22 +19,13 @@ class AuthController extends BaseController {
 
         $checking   = $userModel->where('email', $email)->first();
 
-        if (is_null($checking)) {
+        if (is_null($checking) || $checking['password'] != sha1($password)) {
             return $this->respond([
                 'code'      => 401,
                 'status'    => 'Unauthorized',
                 'message'   => 'Invalid username or password'
             ], 401);
         }
-
-        if ($checking['password'] != sha1($password)) {
-            return $this->respond([
-                'code'      => 401,
-                'status'    => 'Unauthorized',
-                'message'   => 'Invalid username or password'
-            ], 401);
-        }
-
         // Authentication for JWT 
         $key = getenv('JWT_SEC_KEY');
         $iat = time();
