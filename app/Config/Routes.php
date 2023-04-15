@@ -34,7 +34,7 @@ $routes->get('/', 'Home::index');
 $routes->group('api/v1', function($routes) {
     $routes->post('register', "Auth\AuthController::register");
     $routes->post('login', "Auth\AuthController::login");
-    $routes->get('list_users', 'Auth\AuthController::listUsers');
+    $routes->get('list_users', 'Auth\AuthController::listUsers', ['filter' => 'AuthFilter']);
 });
 
 /*

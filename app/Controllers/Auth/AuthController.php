@@ -36,7 +36,7 @@ class AuthController extends BaseController {
         }
 
         // Authentication for JWT 
-        $key = getenv('JWT_SECRET_KEY');
+        $key = getenv('JWT_SEC_KEY');
         $iat = time();
         $exp = $iat + 3600;
         $payload = array(
@@ -46,7 +46,7 @@ class AuthController extends BaseController {
         );
         
         $token = JWT::encode($payload, $key, 'HS256');
-        
+
         $response = array(
             'code'          => 201,
             "status"        => "Success",
@@ -82,5 +82,17 @@ class AuthController extends BaseController {
 
             return $this->fail([$response], 401);
         }
+    }
+
+    public function listUsers() {
+        $userModel  = new User();
+        $getAll = $userModel->findAll();
+
+        return $this->respond(array(
+            "code"      => 201,
+            "status"    => "Success",
+            "message"   => "List user available",
+            "result"    => $getAll
+        ));
     }
 }
