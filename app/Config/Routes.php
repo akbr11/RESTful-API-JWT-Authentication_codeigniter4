@@ -31,6 +31,12 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 
+$routes->group('api/v1', function($routes) {
+    $routes->post('register', "Auth\AuthController::register");
+    $routes->post('login', "Auth\AuthController::login");
+    $routes->get('list_users', 'Auth\AuthController::listUsers');
+});
+
 /*
  * --------------------------------------------------------------------
  * Additional Routing
