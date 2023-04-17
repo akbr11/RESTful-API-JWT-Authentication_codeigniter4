@@ -82,7 +82,7 @@ class AuthController extends BaseController {
         foreach($getAllUser as $um) {
             array_push($data_list, array(
                 "email"     => $um['email'],
-                "deskripsi" => str_replace(['nbsp',' ','!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','>','=','?','@','[',']','\\','^','_','{','}','|','~','`'], ' ', strip_tags($um['deskripsi']))
+                "deskripsi" => str_replace(['nbsp','&','\'','/',':',';','\\'], ' ', strip_tags($um['deskripsi']))
             ));
         }
 
