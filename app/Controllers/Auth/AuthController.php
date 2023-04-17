@@ -77,13 +77,20 @@ class AuthController extends BaseController {
 
     public function listUsers() {
         $userModel  = new User();
-        $getAll = $userModel->findAll();
+        $getAllUser = $userModel->findAll();
+        $data_list = array();
+        foreach($getAllUser as $um) {
+            array_push($data_list, array(
+                "email"     => $um['email'],
+                "deskripsi" => str_replace(['nbsp',' ','!','"','#','$','%','&','\'','(',')','*','+',',','-','.','/',':',';','<','>','=','?','@','[',']','\\','^','_','{','}','|','~','`'], ' ', strip_tags($um['deskripsi']))
+            ));
+        }
 
         return $this->respond(array(
             "code"      => 201,
             "status"    => "Success",
             "message"   => "List user available",
-            "result"    => $getAll
+            "result"    => $data_list
         ));
     }
 }
