@@ -23,9 +23,10 @@ class AuthController extends BaseController {
             return $this->respond([
                 'code'      => 401,
                 'status'    => 'Unauthorized',
-                'message'   => 'Invalid username or password'
+                'message'   => 'Wrong username or password'
             ], 401);
         }
+
         // Authentication for JWT 
         $key = getenv('JWT_SEC_KEY');
         $iat = time();
@@ -35,7 +36,7 @@ class AuthController extends BaseController {
             "exp"   => $exp,
             "email" => $checking['email']
         );
-        
+
         $token = JWT::encode($payload, $key, 'HS256');
 
         $response = array(

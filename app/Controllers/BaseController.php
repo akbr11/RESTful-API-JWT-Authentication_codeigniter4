@@ -54,5 +54,8 @@ abstract class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+        function base64url_encode($data) {
+            return rtrim(strtr(base64_encode($data),  '+/', '-_'), '=');
+        }
     }
 }
